@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Global theme */
+:root { color-scheme: dark; }
+html, body { height: 100%; }
+body { font-family: 'Space Grotesk', ui-sans-serif, system-ui, sans-serif; }
+
+.material-symbols-outlined { font-variation-settings: 'FILL' 1, 'wght' 400, 'GRAD' 0, 'opsz' 24; }
+
+/* Links */
+a { @apply text-white; }
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: #180f23; }
+::-webkit-scrollbar-thumb { background: #322342; border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: #463a55; }
+
+/* Design system helpers */
+@layer components {
+	.gradient-text {
+		@apply text-transparent bg-clip-text;
+		background-image: linear-gradient(to right, #bc88fc, #00e5ff);
+	}
+	.pill {
+		@apply inline-flex items-center gap-2 rounded-full border border-white/10 text-xs px-2 py-1;
+		background-color: theme('colors.background-dark');
+		color: theme('colors.white');
+	}
+	.pill-ghost {
+		@apply inline-flex items-center gap-2 rounded-full text-white/80 hover:text-white bg-white/5 border border-white/10 text-xs px-2 py-1;
+	}
+	.meta-pill {
+		@apply inline-flex items-center rounded-full font-mono text-xs border border-white/10 px-2 py-0.5;
+		background-color: theme('colors.background-dark');
+		color: theme('colors.secondary');
+	}
+}
