@@ -1,12 +1,13 @@
 <script lang="ts">
   import { page } from "$app/stores";
+  import { assets } from "$app/paths";
   export let data: any;
 
   $: pathname = $page.url.pathname;
   const linkBase = "flex items-center gap-3 px-3 py-3 rounded-xl transition-colors";
   const inactive = "hover:bg-[#30273a] text-[#a99bbb] hover:text-white";
   const active = "bg-primary/20 text-primary";
-  const linkClass = (href: string) => (pathname.startsWith(href) ? `${linkBase} ${active}` : `${linkBase} ${inactive}`);
+  const linkClass = (href: string, path: string) => (path.startsWith(href) ? `${linkBase} ${active}` : `${linkBase} ${inactive}`);
 
   $: headerTitle = (() => {
     if (pathname.startsWith("/app/upload")) return "Upload";
@@ -27,31 +28,28 @@
       <div class="flex flex-col gap-8">
         <!-- User/Brand -->
         <div class="flex items-center gap-3 px-2">
-          <div
-            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/20"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMuj53epN26--imPfT-FfFDq0KQHkUG6O-3e3CIxD3rkn1x7xNFugGod2XHrrfhlGq-KjSOsUqZDU0-cIb5dhkZjJUQWn2xbJeDGJksC3R8EEPifIo-35ZGBNyDOkr_U4j5sod6KzhDuJu72-Dh7EAMB4dQAEPbDDJnTheOqNwDHkK6d4rgzpkGTHifKxAB_FmUdxHm6qjy_uCxXpYlnCJ-BoXU7Q5rWSUjz3kZBslg5gyBnGkdr8g5RsVjqHIDdJuqLI-zBqnBKaD');"
-          ></div>
+          <img class="size-10 rounded-lg" src={`${assets}/logo.svg`} alt="Ritmoly logo" />
           <div class="flex flex-col">
-            <h1 class="text-white text-lg font-bold leading-none tracking-tight">AI.DJ</h1>
+            <h1 class="text-white text-lg font-bold leading-none tracking-tight">RITMOLY</h1>
             <p class="text-xs text-white/60 mt-1">{data.user.email}</p>
           </div>
         </div>
 
         <!-- Navigation -->
         <nav class="flex flex-col gap-2">
-          <a class={linkClass("/app/dashboard")} href="/app/dashboard" aria-current={pathname.startsWith("/app/dashboard") ? "page" : undefined}>
+          <a class={linkClass("/app/dashboard", pathname)} href="/app/dashboard" aria-current={pathname.startsWith("/app/dashboard") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">dashboard</span>
             <span class="text-sm font-medium">Dashboard</span>
           </a>
-          <a class={linkClass("/app/upload")} href="/app/upload" aria-current={pathname.startsWith("/app/upload") ? "page" : undefined}>
+          <a class={linkClass("/app/upload", pathname)} href="/app/upload" aria-current={pathname.startsWith("/app/upload") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
             <span class="text-sm font-medium">Upload</span>
           </a>
-          <a class={linkClass("/app/playlists")} href="/app/playlists" aria-current={pathname.startsWith("/app/playlists") ? "page" : undefined}>
+          <a class={linkClass("/app/playlists", pathname)} href="/app/playlists" aria-current={pathname.startsWith("/app/playlists") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">queue_music</span>
             <span class="text-sm font-medium">Playlists</span>
           </a>
-          <a class={linkClass("/app/billing")} href="/app/billing" aria-current={pathname.startsWith("/app/billing") ? "page" : undefined}>
+          <a class={linkClass("/app/billing", pathname)} href="/app/billing" aria-current={pathname.startsWith("/app/billing") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">payments</span>
             <span class="text-sm font-medium">Billing</span>
           </a>
@@ -79,31 +77,28 @@
       <div class="flex flex-col gap-8">
         <!-- User/Brand -->
         <div class="flex items-center gap-3 px-2">
-          <div
-            class="bg-center bg-no-repeat bg-cover rounded-full size-10 ring-2 ring-primary/20"
-            style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDMuj53epN26--imPfT-FfFDq0KQHkUG6O-3e3CIxD3rkn1x7xNFugGod2XHrrfhlGq-KjSOsUqZDU0-cIb5dhkZjJUQWn2xbJeDGJksC3R8EEPifIo-35ZGBNyDOkr_U4j5sod6KzhDuJu72-Dh7EAMB4dQAEPbDDJnTheOqNwDHkK6d4rgzpkGTHifKxAB_FmUdxHm6qjy_uCxXpYlnCJ-BoXU7Q5rWSUjz3kZBslg5gyBnGkdr8g5RsVjqHIDdJuqLI-zBqnBKaD');"
-          ></div>
+          <img class="size-10 rounded-lg ring-2 ring-primary/20" src={`${assets}/ritmoly-logo.svg`} alt="Ritmoly logo" />
           <div class="flex flex-col">
-            <h1 class="text-white text-lg font-bold leading-none tracking-tight">AI.DJ</h1>
+            <h1 class="text-white text-lg font-bold leading-none tracking-tight">RITMOLY</h1>
             <p class="text-xs text-white/60 mt-1">{data.user.email}</p>
           </div>
         </div>
 
         <!-- Navigation -->
         <nav class="flex flex-col gap-2">
-          <a class={linkClass("/app/dashboard")} href="/app/dashboard" on:click={closeMobile} aria-current={pathname.startsWith("/app/dashboard") ? "page" : undefined}>
+          <a class={linkClass("/app/dashboard", pathname)} href="/app/dashboard" on:click={closeMobile} aria-current={pathname.startsWith("/app/dashboard") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">dashboard</span>
             <span class="text-sm font-medium">Dashboard</span>
           </a>
-          <a class={linkClass("/app/upload")} href="/app/upload" on:click={closeMobile} aria-current={pathname.startsWith("/app/upload") ? "page" : undefined}>
+          <a class={linkClass("/app/upload", pathname)} href="/app/upload" on:click={closeMobile} aria-current={pathname.startsWith("/app/upload") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">cloud_upload</span>
             <span class="text-sm font-medium">Upload</span>
           </a>
-          <a class={linkClass("/app/playlists")} href="/app/playlists" on:click={closeMobile} aria-current={pathname.startsWith("/app/playlists") ? "page" : undefined}>
+          <a class={linkClass("/app/playlists", pathname)} href="/app/playlists" on:click={closeMobile} aria-current={pathname.startsWith("/app/playlists") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">queue_music</span>
             <span class="text-sm font-medium">Playlists</span>
           </a>
-          <a class={linkClass("/app/billing")} href="/app/billing" on:click={closeMobile} aria-current={pathname.startsWith("/app/billing") ? "page" : undefined}>
+          <a class={linkClass("/app/billing", pathname)} href="/app/billing" on:click={closeMobile} aria-current={pathname.startsWith("/app/billing") ? "page" : undefined}>
             <span class="material-symbols-outlined text-[24px]">payments</span>
             <span class="text-sm font-medium">Billing</span>
           </a>
@@ -132,7 +127,6 @@
           <span class="material-symbols-outlined">menu</span>
         </button>
         <div class="flex items-center gap-3 text-white">
-          <span class="material-symbols-outlined text-primary">auto_fix_high</span>
           <h2 class="text-xl font-bold tracking-tight">{headerTitle}</h2>
         </div>
       </div>
