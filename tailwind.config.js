@@ -11,6 +11,8 @@ export default {
         "background-light": "#f7f5f8",
         "background-dark": "#180f23",
         surface: "#251a30",
+        "surface-dark": "#231b2e",
+        "surface-light": "#ffffff",
         "surface-highlight": "#322342",
         "border-color": "#463a55"
       },
