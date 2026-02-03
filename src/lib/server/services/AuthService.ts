@@ -45,7 +45,12 @@ export class AuthService {
       updated_at: now
     };
 
-    await users.insertOne(user);
+    try {
+      await users.insertOne(user);
+    } catch (e: any) {
+      if (e?.code === 11000) throw new Error("EMAIL_EXISTS");
+      throw e;
+    }
 
     const token = await this.createToken(user._id, "verify_email");
     const link = `${appUrl}/auth/verify-email/${token}`;
@@ -60,6 +65,11 @@ export class AuthService {
     const users = db.collection<UserDoc>("users");
     const user = await users.findOne({ email });
     if (!user) throw new Error("INVALID_CREDENTIALS");
+
+    if (!user.is_email_verified) {
+      // Bloquear login hasta verificar email
+      throw new Error("EMAIL_NOT_VERIFIED");
+    }
 
     const [salt, hashStored] = user.password_hash.split(".");
     const hash = sha256(`${password}:${salt}:${pepper}`);

@@ -17,6 +17,7 @@
     {placeholder}
     {type}
     {name}
+    {...$$restProps}
   />
   {#if error}<div class="mt-1 text-xs text-red-400">{error}</div>{/if}
 </label>

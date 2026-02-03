@@ -20,6 +20,8 @@ export const POST: RequestHandler = async ({ request, cookies }) => {
     });
     return ok({ user: { email: user.email, role: user.role, is_email_verified: user.is_email_verified } });
   } catch (e: any) {
-    return badRequest("Login failed", { code: e?.message });
+    const code = e?.message as string | undefined;
+    const message = code === "EMAIL_NOT_VERIFIED" ? "Please verify your email before logging in." : "Login failed";
+    return badRequest(message, { code });
   }
 };
